@@ -1,0 +1,41 @@
+/* INIT */
+#login{display: block; padding: 15px; position: absolute; right: 0; text-align: right; top: 0; width: 80px;}
+#login a{color:#fff; text-decoration:none;}	
+
+#logo{display: block; position: absolute; left: 0; top: 0; width: 44px;}
+
+.ui-header {
+	background: -moz-linear-gradient(center bottom , #FF3300, #FF6600) repeat scroll 0 0 #FF6600;
+	border: none;
+	box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+	display: block;
+	height: 44px;
+	padding: 0;
+	margin-bottom: 10px;
+}
+
+#u_description{
+background-color: #ffffff;
+border: 1px solid #999999;
+-moz-border-radius: 10px;
+-webkit-border-radius: 10px;
+border-radius: 10px;
+/*IE 7 AND 8 DO NOT SUPPORT BORDER RADIUS*/
+-moz-box-shadow: inset 0px 0px 1px #cccccc;
+-webkit-box-shadow: inset 0px 0px 1px #cccccc;
+box-shadow: inset 0px 0px 1px #cccccc;
+/*Inner elements should not cover inner shadows*/
+/*Chrome renders inset shadows incorrectly with border-radius*/
+/*IE 7 AND 8 DO NOT SUPPORT INSET SHADOWS*/
+}
+
+#u_description img{display:block; padding:20px;}
+#u_description p{display:block; padding:20px; text-align:left;}
+/* SEARCH */
+#login{display: block; padding: 15px; position: absolute; right: 0; text-align: right; top: 0; width: 80px;}
+#logo{display: block; position: absolute; left: 0; top: 0; width: 44px;}
+.ui-header { background: -moz-linear-gradient(center bottom , #FF3300, #FF6600) repeat scroll 0 0 #FF6600; border: none; box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+	display: block; height: 44px; padding: 0; margin-bottom: 10px;}
+			
+#bt_container{display:block; width:100%;}
+#bt_container div{display:block; margin:0 auto; width:220px; }

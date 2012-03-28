@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>
+		Soundcloud Playlist App
+        </title>
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
+		<link rel="stylesheet" href="./css/styles.css" />
+		
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js">
+        </script>
+        <script src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js">
+        </script>
+		
+		<link rel="stylesheet" href="./player/css/sc-player-standard.css" type="text/css">
+		
+		<script type="text/javascript" src="./player/js/soundcloud.player.api.js"></script>
+		<script type="text/javascript" src="./player/js/sc-player.js"></script>
+		
+    </head>
+    <body>
+	<!-- Initial Page -->
+		<!-- Header -->
+        <div data-role="page" id="init-page">
+            <div data-theme="a" data-role="header">
+                <div id="logo">
+                    <img style="width: 44px; height: 44px;" src="images/soundcloud_logo.png" />
+                </div>
+               <!--<h3>
+                    Header
+                </h3>-->
+				<div id="login">
+                    <a href="#init-page" data-transition="fade" data-role="none">
+                        Login
+                    </a>
+                </div>
+            </div>
+			
+			<!-- User Description -->			
+            <div data-role="content">
+
+                <div class="ui-grid-a" id="u_description">
+                    <div class="ui-block-a">
+                        <img src="http://codiqa.com/static/images/v2/image.png" alt="image" />
+                    </div>
+                    <div class="ui-block-b">
+                        <div>
+                            <p>Dados Utilizador</p>
+                        </div>
+                    </div>
+                </div>
+
+				<br/>
+				<br/>
+				
+				<!-- Listview -->
+                <ul data-role="listview" data-divider-theme="d" data-inset="false">
+				    <li data-role="list-divider" role="heading">
+                        Music
+                    </li>
+                    <li data-theme="c" data-icon="search" data-transition="slide" data-rel="external">
+                        <a href="search.html" >
+                            Search Music
+                        </a>
+                    </li>
+					<li data-role="list-divider" role="heading">
+                        Playlists
+                    </li>
+                    <li data-theme="c" data-icon="grid">
+                        <a href="#playlists-page" data-transition="slide">
+                            My Playlists
+                        </a><span class="ui-li-count">5</span>
+                    </li>
+                    <li data-theme="c" data-icon="plus">
+                        <a href="search.html" data-transition="pop" data-rel="dialog">
+                            Create Playlist
+                        </a>
+                    </li>
+                </ul>
+				
+            </div>
+        </div>
+
+		<!-- Start of Playlists page -->
+		<div data-role="page" id="playlists-page">
+            <div data-theme="a" data-role="header">
+                <div id="logo">
+                    <img style="width: 44px; height: 44px;" src="images/soundcloud_logo.png" />
+                </div>
+               <!--<h3>
+                    Header
+                </h3>-->
+				<div id="login">
+                    <a href="#init-page" data-transition="fade" data-role="none">
+                        Login
+                    </a>
+                </div>
+            </div>
+			
+
+			<div data-role="content">
+
+                <ul data-role="listview" data-divider-theme="d" data-inset="false">
+				    <li data-role="list-divider" role="heading">
+                        My Playlists
+                    </li>
+                    <li data-theme="c" data-icon="gear" data-iconpos="left">
+                        <a href="#player-page" data-transition="slide">
+                            Playlist1
+                        </a>
+						<a href="edit.html" data-transition="pop" data-rel="dialog" data-icon="gear" data-theme="e">
+						</a>
+                    </li>
+                    <li data-theme="c">
+                        <a href="#player-page" data-transition="slide" >
+                            Playlist2
+                        </a><a href="edit.html" data-transition="pop" data-rel="dialog" data-icon="gear" data-theme="e"></a>
+                    </li>
+                    <li data-theme="c" data-icon="gear">
+                        <a href="#player-page" data-transition="slide">
+                            Playlist3
+                        </a><a href="edit.html" data-transition="pop" data-rel="dialog" data-icon="gear" data-theme="e"></a>
+                    </li>
+                </ul>			
+	
+			</div><!-- /content -->
+			
+				<div data-role="footer" data-position="fixed" >
+					<a href="#init-page" data-role="button" data-theme="a" data-transition="slide">Back</a>
+				</div>
+
+		</div><!-- /page -->	
+
+		<!-- Start of Player page -->
+		 <div data-role="page" id="player-page">
+            <div data-theme="a" data-role="header">
+                <div id="logo">
+                    <img style="width: 44px; height: 44px;" src="images/soundcloud_logo.png" />
+                </div>
+               <!--<h3>
+                    Header
+                </h3>-->
+				<div id="login">
+                    <a href="#init-page" data-transition="fade" data-role="none">
+                        Login
+                    </a>
+                </div>
+            </div>
+			
+            <div data-role="content">
+			
+			    <div class="ui-grid-a" data-role="none">
+				<div class="ui-block-a" data-role="none">
+					<a href="http://soundcloud.com/diogoareia/sets/testing-123/" class="sc-player">Testing 123</a>
+				</div>
+				</div>
+		                
+        </div>
+		
+			<div data-role="footer" data-position="fixed" >
+				<a href="#playlists-page" data-role="button" data-theme="a" data-transition="slide">Back</a>
+			</div>
+       </div>
+
+        <script>
+        </script>
+    </body>
+</html>
