@@ -4,46 +4,52 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>
+		Soundcloud Playlist App
         </title>
         <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
+		<link rel="stylesheet" href="./css/styles.css" />
 		
-        <style>
-            /* App custom styles */
-        </style>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js">
         </script>
         <script src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js">
         </script>
+	
+	<!--Player -->
+	<link rel="stylesheet" href="./player/css/sc-player-standard.css" type="text/css">
 		
-		<style>
-		
-		</style>
-
-		
+	<script type="text/javascript" src="./player/js/soundcloud.player.api.js"></script>
+	<script type="text/javascript" src="./player/js/sc-player.js"></script>	
+	
+	<script src="http://connect.soundcloud.com/sdk.js"></script>	
+    <script src="./js/custom.js"></script>
     </head>
     <body>
-        <div data-role="page" id="player">
-            <div data-theme="a" data-role="header" id="main_header">
-			<a id="logo" href=""></a>		
-                <h3>
-                    Header
-                </h3>
+	
+    <div data-role="page" id="player-page">
+             <div data-theme="a" data-role="header">
+                <a href="init.html" data-rel="external" data-ajax="false" data-role="none" id="logo">
+                    <img style="width: 44px; height: 44px;" src="images/soundcloud_logo.png" />
+                </a>
+
+		<div id="login">
+                    <a href="init.html" data-rel="external" data-ajax="false">
+                        Login
+                    </a>
+                </div>
             </div>
+  
+  
             <div data-role="content">
 			
-			    <h3>Playlist Player</h3>
-      
-      
-        <div class="sc-player">
-          <a href="http://soundcloud.com/matas/matas-petrikas-live-at-gravity-club-30-05-2008">My live track</a>
-          <a href="http://soundcloud.com/matas/goldfrapp-little-bird-matas-ornitologic-remix">Goldfrapp</a>
-          <a href="http://soundcloud.com/matas/on-the-bridge">On the bridge</a>
-        </div>
+	 <h3>Playlist Player</h3>
 		
-		<a href="http://soundcloud.com/forss/sets/soulhack" class="sc-player">Soulhack</a>
+		<a href="http://soundcloud.com/diogoareia/sets/testing-123" class="sc-player">Diogo</a>
                         
         </div>
+	<div data-role="footer" data-position="fixed" >    
+	    <a href="playlists.html" data-ajax="false" data-rel="external" data-role="button" data-theme="a">Back</a>
+	</div>    
        </div>
-
-    </body>
+    
+</body>
 </html>

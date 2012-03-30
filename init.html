@@ -13,26 +13,31 @@
         </script>
         <script src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js">
         </script>
+	
+	<!--Player -->
+	<!--
+	<link rel="stylesheet" href="./player/css/sc-player-standard.css" type="text/css">
 		
-		<link rel="stylesheet" href="./player/css/sc-player-standard.css" type="text/css">
-		
-		<script type="text/javascript" src="./player/js/soundcloud.player.api.js"></script>
-		<script type="text/javascript" src="./player/js/sc-player.js"></script>
+	<script type="text/javascript" src="./player/js/soundcloud.player.api.js"></script>
+	<script type="text/javascript" src="./player/js/sc-player.js"></script>	
+	-->	
+	<script src="http://connect.soundcloud.com/sdk.js"></script>	
+    <script src="./js/custom.js"></script>
 		
     </head>
     <body>
 	<!-- Initial Page -->
 		<!-- Header -->
         <div data-role="page" id="init-page">
-            <div data-theme="a" data-role="header">
+            <div data-theme="a" data-role="header" id="main_header">
                 <div id="logo">
                     <img style="width: 44px; height: 44px;" src="images/soundcloud_logo.png" />
                 </div>
                <!--<h3>
                     Header
                 </h3>-->
-				<div id="login">
-                    <a href="#init-page" data-transition="fade" data-role="none">
+		<div id="login">
+                    <a href="#" data-transition="fade" data-role="none">
                         Login
                     </a>
                 </div>
@@ -42,61 +47,61 @@
             <div data-role="content">
 
                 <div class="ui-grid-a" id="u_description">
-                    <div class="ui-block-a">
-                        <img src="http://codiqa.com/static/images/v2/image.png" alt="image" />
-                    </div>
+                    <div class="ui-block-a" style="width:130px;"><img id="img_avatar" alt="avatar" /></div>
                     <div class="ui-block-b">
-                        <div>
-                            <p>Dados Utilizador</p>
-                        </div>
-                    </div>
+			<div>
+			    <br/>
+			    <span id="username"></span>
+			    <br/>
+			    <span id="fullname"></span>
+			    <br/>
+			    <span id="track_count"></span>
+			</div>
+		    </div>
                 </div>
 
-				<br/>
-				<br/>
+		<br/>
+		<br/>
 				
-				<!-- Listview -->
-                <ul data-role="listview" data-divider-theme="d" data-inset="false">
-				    <li data-role="list-divider" role="heading">
-                        Music
-                    </li>
-                    <li data-theme="c" data-icon="search" data-transition="slide" data-rel="external">
-                        <a href="search.html" >
-                            Search Music
-                        </a>
-                    </li>
-					<li data-role="list-divider" role="heading">
-                        Playlists
-                    </li>
-                    <li data-theme="c" data-icon="grid">
-                        <a href="#playlists-page" data-transition="slide">
-                            My Playlists
-                        </a><span class="ui-li-count">5</span>
-                    </li>
-                    <li data-theme="c" data-icon="plus">
-                        <a href="search.html" data-transition="pop" data-rel="dialog">
-                            Create Playlist
-                        </a>
-                    </li>
+		<!-- Listview Init -->
+        <ul data-role="listview" data-divider-theme="d" data-inset="false" id="init_list">
+		    <li data-role="list-divider" role="heading">Music</li>
+                    <li data-theme="c" data-icon="search" ><a href="search.html" data-rel="external" data-ajax="false">Search Music</a></li>
+		    <li data-role="list-divider" role="heading">Playlists</li>
+                    <li data-theme="c" data-icon="grid"><a href="playlists.html" data-rel="external" data-ajax="false">My Playlists</a><span class="ui-li-count" id="pl_count"></span></li>
+                    <li data-theme="c" data-icon="plus"><a href="#" class="pl_create" data-ajax="true"> <!--data-transition="pop" data-rel="dialog" -->Create Playlist</a></li>
                 </ul>
 				
             </div>
         </div>
+	
+		<!-- Dialog Create Playlist --> 
+		<div data-role="page" id="create-page">
+			<div data-theme="a" data-role="header" id="main_header">
+				<a href="#init-page"></a>		
+					<h3>
+						Create Playlist
+					</h3>
+				</div>
+            <div data-role="content">
+				<form url="">
+					<div data-role="fieldcontain">				
+								<fieldset data-role="controlgroup">
+									<label for="createinput">
+									</label>
+									<input id="createinput" placeholder="Playlist Name..." value="" type="text" />
+								</fieldset>
+					</div>
+					<div id="bt_container">		
+						<input data-role="button" data-theme="e" value="Enter Name" type="submit" id="bt_create" />	
+					</div>
+				</form>				
 
-		<!-- Start of Playlists page -->
-		<div data-role="page" id="playlists-page">
-            <div data-theme="a" data-role="header">
-                <div id="logo">
-                    <img style="width: 44px; height: 44px;" src="images/soundcloud_logo.png" />
-                </div>
-               <!--<h3>
-                    Header
-                </h3>-->
-				<div id="login">
-                    <a href="#init-page" data-transition="fade" data-role="none">
-                        Login
-                    </a>
-                </div>
+            </div>
+        </div>
+
+    </body>
+</html></div>
             </div>
 			
 

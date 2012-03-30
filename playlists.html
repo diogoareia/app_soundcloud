@@ -25,45 +25,36 @@
 		
     </head>
     <body>
-	<!-- Start of search page -->
-	<!-- Header -->
-        <div data-role="page" id="search-page">
+	
+	<div data-role="page" id="playlists-page">
             <div data-theme="a" data-role="header">
                 <a href="init.html" data-rel="external" data-ajax="false" data-role="none" id="logo">
                     <img style="width: 44px; height: 44px;" src="images/soundcloud_logo.png" />
                 </a>
 
-				<div id="login">
+		<div id="login">
                     <a href="init.html" data-rel="external" data-ajax="false">
                         Login
                     </a>
                 </div>
             </div>
-            <div data-role="content">
+ 
+	    <div data-role="content">	
+	    
+		<div id="pl_list">
+		    <ul data-role="listview" data-divider-theme="d" data-inset="true">
+			<li data-role="list-divider" role="heading">My Playlists</li> 
+		    </ul>
+		</div>
 
-				<form id="search_form">
-					<div data-role="fieldcontain">				
-								<fieldset data-role="controlgroup">
-									<label for="musicinput">
-									</label>
-									<input id="musicinput" placeholder="Music..." value="" type="search" />
-								</fieldset>
-					</div>
-					<div id="bt_container">		
-						<input data-role="button" data-theme="e" value="Search Soundcloud" type="submit" id='bt_search' />	
-					</div>
-				</form>
-				
-    	    	<div id="music_list">
-					<ul data-role="listview" data-inset="true" data-filter="false">
-					</ul>
-				</div>
-	
-			</div>	<!-- /content -->
-				
-			<div data-role="footer" data-position="fixed" >
-				<a href="init.html" data-rel="external" data-ajax="false" data-role="button" data-theme="a">Back</a>
-			</div>
-		</div> <!-- /page -->
+	    </div><!-- /content -->
+
+	    <div data-role="footer" data-position="fixed" >
+    		<a href="init.html" data-ajax="false" data-rel="external" data-role="button" data-theme="a">Back</a>
+	    </div>
+
+	</div><!-- /page -->
+
 </body>
-</html>		
+</html>
+ 
