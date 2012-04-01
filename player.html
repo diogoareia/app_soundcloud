@@ -13,13 +13,7 @@
         </script>
         <script src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js">
         </script>
-	
-	<!--Player -->
-	<link rel="stylesheet" href="./player/css/sc-player-standard.css" type="text/css">
 		
-	<script type="text/javascript" src="./player/js/soundcloud.player.api.js"></script>
-	<script type="text/javascript" src="./player/js/sc-player.js"></script>	
-	
 	<script src="http://connect.soundcloud.com/sdk.js"></script>	
     <script src="./js/custom.js"></script>
     </head>
@@ -40,12 +34,18 @@
   
   
             <div data-role="content">
-			
+					
 	 <h3>Playlist Player</h3>
-		
-		<a href="http://soundcloud.com/diogoareia/sets/testing-123" class="sc-player">Diogo</a>
-                        
-        </div>
+	    
+	    <script>
+		var playlist_uri = localStorage.playlist_uri;    
+		SC.oEmbed(playlist_uri, { auto_play: true } ,document.getElementById("playlist"));    
+    
+	    </script>
+	
+	<div id="playlist"></div>          
+        
+	</div>
 	<div data-role="footer" data-position="fixed" >    
 	    <a href="playlists.html" data-ajax="false" data-rel="external" data-role="button" data-theme="a">Back</a>
 	</div>    
