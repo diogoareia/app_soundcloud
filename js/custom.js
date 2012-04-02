@@ -218,32 +218,36 @@ function goToTrack(id){
 // Add Playlist
 function addTrackToPlaylist(music_id, playlist_id){
 	
-	var ur = "/me/playlists/" + playlist_id;
 	var oauth = localStorage["SC.accessToken"];
-	var new_tracks = new Object();
-	new_tracks['id'] = music_id;
-	var t = new Object();
-	t['tracks'] = new_tracks;
-	var ur_post = "https://api.soundcloud.com/playlists/" + playlist_id + ".json";
+	var playlist = new Object();
+	playlist['tracks'] = [{id : music_id}];
+	var url = "/me/playlists/" + playlist_id;
+	var newTrack = new Object();
 	
-	/*SC.get(ur, function(tracks){
-		$.each(tracks, function(i, track) {
-			
-			alert(track);
-			
-			$.post(ur_post, { oauth_token: oauth, id: new_tracks }, function() {
-			
+	SC.get(url, function(pl, error){
+		var trackExists = new Boolean();
+		$.each(pl.tracks, function(i, track) {
+			if(music_id != track.id){
+				//newTrack['id'] = track.id; 
+				playlist.tracks.push({id:track.id});
+				trackExists = false;
+			}else{
+				trackExists = true;
+				alert('Track already exists in the playlist!');				
+				return false;
+			}
+		});
+		
+		if(!trackExists){
+			SC.put(url, {playlist: playlist},function(pl, error){
+				if(error){
+					alert("Error: " + error.message);
+				}else{
+					alert("Track added to playlist!");
+				}
 			});
-			
-	});
+		}
 		
-	});
-	*/
-	
-	$.post(ur_post, { oauth_token: oauth, tracks: t }, function(data) {
-		
-		alert(data);
-			
 	});
 
 }
@@ -351,5 +355,12 @@ $('#playlists-page').live('pageinit',function(event){
 		var pl_id = $(this).closest('li').attr('id');
 		goToPlaylist(pl_id);		
 	});
+	
+});
+
+//PLAYER PAGE
+$('#player-page').live('pageinit',function(event){
+	//alert('Playlists Page!');
+	scGetUserData();
 	
 });
