@@ -30,58 +30,80 @@ function getUserDetails(){
 		$('span#fullname').html("<span><b>Name: </b></span>" + me.full_name);
 		$('span#track_count').html("<span><b>Nr of Tracks: </b></span>" + me.track_count);
 		$('span#pl_count').text(me.playlist_count);
-		$('#login a').html('<a href="#">Logout</a>');
+		$('#login a').html('<a href="#"></a>');
 	});
 }
     
 	    
 //Playlists
-function findPlayLists(){
+function findPlayLists(pl_id){
 	var items = [];
-	$('#pl_list ul').empty();
-	
+	var id = pl_id + " ul";
+	$(id).empty();
+
 	items.push('<li data-role="list-divider" role="heading">My Playlists</li>');
-	SC.get('/me/playlists/', function(p){
-		$.each(p, function(i, val) {
-				
-		items.push('<li data-rel="external" id="' + val.id + '"><a href="player.html" data-rel="external" data-ajax="false"><h3>'
-			   + val.title + '</h3></a><a href="#" data-icon="delete" data-theme="e"></a></li>');
+	SC.get('/me/playlists/', function(playlists){
+		$.each(playlists, function(i, playlist) {
+		items.push('<li data-rel="external" id="' + playlist.id + '"><a href="player.html" data-rel="external" data-ajax="false"><h3>'
+			   + playlist.title + '</h3></a><a href="#" data-icon="delete" data-theme="e"></a></li>');
 		});
+		
 		var list_view = items.join('');
-		$('#pl_list ul').append(list_view).listview('refresh');
+		$(id).append(list_view).listview('refresh');
 	});
 	
-	$('#pl_list ul').listview();	
+	$(id).listview();	
+
+}
+
+function findAddPlayLists(pl_id){
+	var items = [];
+	var id = pl_id + " ul";
+	$(id).empty();
+
+	//items.push('<li data-role="list-divider" role="heading">Choose the Playlist</li>');
+	SC.get('/me/playlists/', function(playlists){
+		$.each(playlists, function(i, playlist) {
+		items.push('<li data-rel="external" data-icon="plus" id="' + playlist.id + '"><a href="#search-page" ><h3>'
+			   + playlist.title + '</h3></a></li>');
+		});
+		
+		var list_view = items.join('');
+		$(id).append(list_view).listview('refresh');
+	});
+	
+	$(id).listview();	
 
 }
 
 
 //Delete Playlists
 function deletePlayLists(pl_id){
+	var items = [];
 	
-	var ur="/playlists/" + pl_id;	
-			
-	SC.delete(ur, function(response, error){
-		if(error){
-		  alert("Some error occured: " + error.message);
-		}else{
-			alert("Playlist successfully deleted");
-		}
-	});
+	var ur="/playlists/" + pl_id;
 	
+	$('#pl_list ul').empty();
 	var oauth = localStorage["SC.accessToken"];
 	var ur = "https://api.soundcloud.com/playlists.json";
+	
+	items.push('<li data-role="list-divider" role="heading">My Playlists</li>');
 	SC.get('/me/playlists', function(playlists){
 		$.each(playlists, function(i, playlist) {
 		if(playlist.id != pl_id ){	
 			$.post(ur, { oauth_token: oauth, playlist: playlist }, function() {
-
+				
 			});
+			items.push('<li data-rel="external" id="' + playlist.id + '"><a href="player.html" data-rel="external" data-ajax="false"><h3>'
+			   + playlist.title + '</h3></a><a href="#" data-icon="delete" data-theme="e"></a></li>');			
 		}
 	});
+		var list_view = items.join('');
+		$('#pl_list ul').append(list_view).listview('refresh');
+		
+		alert("Playlist successfully deleted");
 	});
-	
-	findPlayLists();
+	$('#pl_list ul').listview();
 	
 }
     
@@ -93,7 +115,7 @@ function findTracks(music){
 	var jqxhr = $.getJSON("https://api.soundcloud.com/tracks.json?client_id=3f89b0cd71fd914ea55be0cc3a918dca",	      
 	{
 	q: music,
-	tags: music,
+	//tags: music,
 	filter: 'public'	
 	},
 	
@@ -113,7 +135,7 @@ function findTracks(music){
 		}
 				
 		items.push('<li id="' + track_id + '"><a href="#" data-transition="slide"><img src="' + artwork_url + '" alt="' + artwork_url + ' "/><h3>' + track_title 
-			+ '</h3></a><a href="#" data-icon="plus" data-theme="e" title="pl_add"></a></li>');
+			+ '</h3></a><a href="#addpl-page" data-icon="plus" data-rel="dialog" data-transition="pop" data-theme="e" ></a></li>');
 		});
 		
 		if (items.length > 1 )	{
@@ -143,9 +165,10 @@ function createPlaylist(name, description) {
 	playlist['description'] = description;
 	var ur = "https://api.soundcloud.com/playlists.json";
 	
+	
 	$.post(ur, { oauth_token: oauth, playlist: playlist }, function(data) {
 		
-		console.log(data);
+		//console.log(data);
 
 	}).success(function(){ 
 		$.mobile.changePage('#init-page', {transition: 'fade', role: 'page', rel: 'external'});  alert("Playlist Created"); 
@@ -159,22 +182,71 @@ function goToPlaylist(id){
 	
 	SC.get(ur, function(playlist){
 		var p_link = playlist.permalink_url;
-		//var nr_tracks = playlist.tracks.length;
+		var nr_tracks = playlist.tracks.length;
 		
 		localStorage.removeItem('playlist_uri');
 		localStorage.setItem('playlist_uri', p_link);
 		
-		//reloadPage: 'false'
+		
+		if (nr_tracks > 0){
+		$.mobile.changePage('player.html', {role: 'page'});
+		}else{
+			alert('This playlist has no tracks to play!!!');
+		}
+	});	 
+}
+
+//Go to track
+function goToTrack(id){
+	var ur = "/tracks/" + id;
+	
+	SC.get(ur, function(track){
+		var t_link = track.permalink_url;
+		//var nr_tracks = playlist.tracks.length;
+		
+		localStorage.removeItem('playlist_uri');
+		localStorage.setItem('playlist_uri', t_link);
+		
+		
 		//if (p_link.length > 0){
 		$.mobile.changePage('player.html', {role: 'page'});
 		//}
 	});	 
 }
 
-
 	
 // Add Playlist
+function addTrackToPlaylist(music_id, playlist_id){
 	
+	var ur = "/me/playlists/" + playlist_id;
+	var oauth = localStorage["SC.accessToken"];
+	var new_tracks = new Object();
+	new_tracks['id'] = music_id;
+	var t = new Object();
+	t['tracks'] = new_tracks;
+	var ur_post = "https://api.soundcloud.com/playlists/" + playlist_id + ".json";
+	
+	/*SC.get(ur, function(tracks){
+		$.each(tracks, function(i, track) {
+			
+			alert(track);
+			
+			$.post(ur_post, { oauth_token: oauth, id: new_tracks }, function() {
+			
+			});
+			
+	});
+		
+	});
+	*/
+	
+	$.post(ur_post, { oauth_token: oauth, tracks: t }, function(data) {
+		
+		alert(data);
+			
+	});
+
+}
 	
     
 //Init
@@ -194,7 +266,6 @@ $('#init-page').live('pageinit',function(event){
 	$('ul li a.pl_create').live("click", function(e){
 		e.preventDefault();
 		$.mobile.changePage('#create-page', {transition: 'pop', role: 'dialog'}); 
-		//loadPlayLists();
 	});
 
 	$('input#bt_create').live("click", function(e){
@@ -214,6 +285,7 @@ $('#init-page').live('pageinit',function(event){
 $('#search-page').live('pageinit',function(event){
 	//alert('Search Page!');
 	scGetUserData();
+	var mid = "";
   	$('input#bt_search').live('click', function(e){
 		e.preventDefault();
 		e.stopPropagation();
@@ -227,26 +299,50 @@ $('#search-page').live('pageinit',function(event){
 		}
 	});
 	
+	$('#music_list ul li a.ui-link-inherit').live("click", function(e){
+		e.preventDefault();
+		e.stopPropagation();
+		
+		var music_id = $(this).closest('li').attr('id');
+		goToTrack(music_id);
+		
+	});
+	
 	$('#music_list ul li a.ui-li-link-alt').live("click", function(e){
 		e.preventDefault();
 		e.stopPropagation();
-
+		
 		var music_id = $(this).parent().attr('id');
+		mid = music_id;
+		findAddPlayLists("#addpl_list");
 		//$.mobile.changePage('#add-page', {transition: 'pop', role: 'dialog'});
 		
 	});
+	
+	//Choose playlist page
+	$('#addpl_list ul li a').live("click", function(e){
+		e.preventDefault();
+		e.stopPropagation();
+		
+		var pl_id = $(this).closest('li').attr('id');
+		addTrackToPlaylist(mid, pl_id);
+		//$.mobile.changePage('#add-page', {transition: 'pop', role: 'dialog'});
+		
+	});
+	
+	
 });	
 
 //PLAYLISTS PAGE
 $('#playlists-page').live('pageinit',function(event){
 	//alert('Playlists Page!');
 	scGetUserData();
-	findPlayLists();
+	findPlayLists("#pl_list");
 	
 	$('#pl_list ul li a.ui-li-link-alt').live("click", function(e){
 		e.preventDefault();
 		var pl_id = $(this).parent().attr('id');
-		alert(pl_id);
+		//alert(pl_id);
 		deletePlayLists(pl_id);	 
 	});
 	
@@ -256,4 +352,4 @@ $('#playlists-page').live('pageinit',function(event){
 		goToPlaylist(pl_id);		
 	});
 	
-});	
+});
